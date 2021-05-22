@@ -9,15 +9,15 @@ Incomplete. Working on the issues:
 
 To run,
 
-python audio_visualization.py arg1 arg2 arg3 arg4
+```python audio_visualization.py arg1 arg2 arg3 arg4```
 
-arg1 - name of audiofile in .wav format
+arg1 - name of audiofile in **.wav** format
 
-arg2 - name of soundless video in .mp4 format
+arg2 - name of soundless video in **.mp4** format
 
-arg3 - name of sound video in .mp4 format
+arg3 - name of sound video in **.mp4** format
 
-arg4 - width of circles (optional). Default is 15
+arg4 - width of circles (**optional**). Default is 15
 
 
 eg. python audio_visualization.py audio.wav x.mp4 y.mp4 12
