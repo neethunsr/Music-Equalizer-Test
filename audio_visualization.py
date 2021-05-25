@@ -205,7 +205,7 @@ def circle_mode(bins0, bins1, save_name, color_changing, circle_width=15):
         camera.snap()
 
     animation = camera.animate()
-    animation.save(save_name, fps=30, writer='ffmpeg')
+    animation.save(save_name, fps=30, dpi=100, codec="libx264", writer='ffmpeg')
     print("time: ", time.time() - start)
     # processing is done at 10fps so processing time is 3x running time
 
@@ -230,24 +230,31 @@ def add_audio(input_video_filename, added_audio_filename, output_filename):
 if __name__ == '__main__':
     args = sys.argv
     assert len(args) == 3 or len(args) == 4
-    assert args[1][-4:] == '.mp3' or '.wav'
+    assert args[1][-4:] == '.wav' or '.mp3'
 #   assert args[2] in ['0', '1']
     assert args[2][-4:] == '.mp4'
-    assert args[3][-4:] == '.mp4'
- #  assert args[5] in ['0', '1']
+#   assert args[3][-4:] == '.mp4'
+#   assert args[5] in ['0', '1']
+
+    input_audio = args[1]
+
     if args[1][-4:]=='.mp3':
-        input_audio_filename = args[1].replace(".mp3",".wav")
+        wavFile = "audio.wav"
+        sound = AudioSegment.from_mp3(input_audio)
+        sound.export(wavFile, format = "wav")
     else:
-        input_audio_filename = args[1]
+        wavFile = args[1]
+
+
     mono = 0
-    no_sound_video_output_filename = args[2]
-    with_sound_video_output_filename = args[3]
+    no_sound_video_output_filename = "temp.mp4"
+    with_sound_video_output_filename = args[2]
     color_changing = 1
-    if(len(args) == 4):
+    if(len(args) == 3):
         circle_width = 15
     else:
-        circle_width = int(args[4])
+        circle_width = int(args[3])
 
-    bins0, bins1 = wav_to_bins(input_audio_filename, mono=mono, bin_boundaries=[4, 37, 93, 371])
+    bins0, bins1 = wav_to_bins(wavFile, mono=mono, bin_boundaries=[4, 37, 93, 371])
     circle_mode(bins0, bins1, no_sound_video_output_filename, color_changing=color_changing, circle_width=circle_width)
-    add_audio(no_sound_video_output_filename, input_audio_filename, with_sound_video_output_filename)
+    add_audio(no_sound_video_output_filename, wavFile, with_sound_video_output_filename)
