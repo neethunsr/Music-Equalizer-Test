@@ -228,22 +228,22 @@ def add_audio(input_video_filename, added_audio_filename, output_filename):
     )
 
 if __name__ == '__main__':
-    args = sys.argv
-    assert len(args) == 3 or len(args) == 4
-    assert args[1][-4:] == '.wav' or '.mp3'
+#    args = sys.argv
+#    assert len(args) == 3 or len(args) == 4
+#    assert args[1][-4:] == '.wav' or '.mp3'
 #   assert args[2] in ['0', '1']
-    assert args[2][-4:] == '.mp4'
+#    assert args[2][-4:] == '.mp4'
 #   assert args[3][-4:] == '.mp4'
 #   assert args[5] in ['0', '1']
 
     input_audio = args[1]
 
-    if args[1][-4:]=='.mp3':
+    if input_audio[1][-4:]=='.mp3':
         wavFile = "audio.wav"
         sound = AudioSegment.from_mp3(input_audio)
         sound.export(wavFile, format = "wav")
     else:
-        wavFile = args[1]
+        wavFile = input_audio
 
 
     mono = 0
